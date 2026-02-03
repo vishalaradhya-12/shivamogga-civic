@@ -44,7 +44,7 @@ body.dark .navbar-logo {
 .logo-icon {
     width: 40px;
     height: 40px;
-    background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+    background: linear-gradient(135deg, var(--primary-green), var(--accent-teal));
     border-radius: var(--radius-lg);
     display: flex;
     align-items: center;
@@ -59,7 +59,7 @@ body.dark .navbar-logo {
 }
 
 .logo-name {
-    background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+    background: linear-gradient(135deg, var(--primary-green), var(--accent-teal));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -89,7 +89,7 @@ body.dark .nav-link {
 }
 
 .nav-link:hover {
-    color: var(--primary-blue);
+    color: var(--primary-green);
     background: var(--gray-100);
 }
 
@@ -98,8 +98,8 @@ body.dark .nav-link:hover {
 }
 
 .nav-link.active {
-    color: var(--primary-blue);
-    background: rgba(59, 130, 246, 0.1);
+    color: var(--primary-green);
+    background: rgba(16, 185, 129, 0.1);
 }
 
 .nav-link.active::after {
@@ -110,7 +110,7 @@ body.dark .nav-link:hover {
     transform: translateX(-50%);
     width: 30px;
     height: 3px;
-    background: var(--primary-blue);
+    background: var(--primary-green);
     border-radius: 2px;
 }
 
@@ -142,7 +142,7 @@ body.dark .icon-btn {
 
 .icon-btn:hover {
     background: var(--gray-100);
-    color: var(--primary-blue);
+    color: var(--primary-green);
 }
 
 body.dark .icon-btn:hover {
@@ -192,7 +192,7 @@ body.dark .language-option {
 
 .language-option:hover {
     background: var(--gray-100);
-    color: var(--primary-blue);
+    color: var(--primary-green);
 }
 
 body.dark .language-option:hover {
@@ -200,8 +200,8 @@ body.dark .language-option:hover {
 }
 
 .language-option.active {
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--primary-blue);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--primary-green);
     font-weight: 600;
 }
 
@@ -235,8 +235,8 @@ body.dark .mobile-nav-link {
 
 .mobile-nav-link:hover,
 .mobile-nav-link.active {
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--primary-blue);
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--primary-green);
 }
 
 /* Responsive */
