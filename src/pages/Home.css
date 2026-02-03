@@ -541,15 +541,15 @@ body.dark .step-content p {
     font-size: clamp(2.2rem, 3.5vw, 3.2rem);
     margin-bottom: var(--spacing-lg);
     font-weight: 800;
-    color: white;
+    color: white !important;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
 }
 
 .cta-section p {
     font-size: 1.3rem;
     margin-bottom: var(--spacing-2xl);
-    color: white;
-    opacity: 1;
+    color: white !important;
+    opacity: 1 !important;
     max-width: 700px;
     margin-left: auto;
     margin-right: auto;
