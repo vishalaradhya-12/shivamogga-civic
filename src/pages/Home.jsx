@@ -8,14 +8,29 @@ import './Home.css';
 function Home({ language }) {
     const [selectedCity, setSelectedCity] = useState('');
     const [wardNumber, setWardNumber] = useState('');
+    const [selectedDepartment, setSelectedDepartment] = useState('');
     const navigate = useNavigate();
 
     const t = (key) => getTranslation(key, language);
 
+    // Department options
+    const departments = [
+        { id: 'health', name: 'Health & Sanitation', nameKn: 'ಆರೋಗ್ಯ ಮತ್ತು ನೈರ್ಮಲ್ಯ', nameHi: 'स्वास्थ्य और स्वच्छता' },
+        { id: 'water', name: 'Water Supply', nameKn: 'ನೀರು ಪೂರೈಕೆ', nameHi: 'जल आपूर्ति' },
+        { id: 'roads', name: 'Roads & Infrastructure', nameKn: 'ರಸ್ತೆಗಳು ಮತ್ತು ಮೂಲಸೌಕರ್ಯ', nameHi: 'सड़कें और बुनियादी ढांचा' },
+        { id: 'education', name: 'Education', nameKn: 'ಶಿಕ್ಷಣ', nameHi: 'शिक्षा' },
+        { id: 'streetlights', name: 'Street Lights', nameKn: 'ರಸ್ತೆ ದೀಪಗಳು', nameHi: 'सड़क की बत्तियां' },
+        { id: 'parks', name: 'Parks & Gardens', nameKn: 'ಉದ್ಯಾನವನಗಳು', nameHi: 'पार्क और उद्यान' }
+    ];
+
     const handleSearch = (e) => {
         e.preventDefault();
         if (selectedCity && wardNumber) {
-            navigate(`/ward/${wardNumber}`);
+            // Navigate to ward details with optional department filter
+            const path = selectedDepartment
+                ? `/ward/${wardNumber}?dept=${selectedDepartment}`
+                : `/ward/${wardNumber}`;
+            navigate(path);
         }
     };
 
@@ -128,18 +143,46 @@ function Home({ language }) {
 
                         <div className="form-group">
                             <label htmlFor="ward">
-                                Enter Ward Number (1-60)
+                                Select Ward <span style={{ color: '#ef4444' }}>*</span>
                             </label>
-                            <input
-                                type="number"
+                            <select
                                 id="ward"
-                                placeholder="Ex: 12"
                                 value={wardNumber}
                                 onChange={(e) => setWardNumber(e.target.value)}
-                                min="1"
-                                max="60"
                                 disabled={!selectedCity}
-                            />
+                                required
+                            >
+                                <option value="">Select ward number</option>
+                                {[...Array(60)].map((_, i) => (
+                                    <option key={i + 1} value={i + 1}>
+                                        Ward {i + 1}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <div className="form-group">
+                            <label htmlFor="department">
+                                Select Department (Optional)
+                            </label>
+                            <select
+                                id="department"
+                                value={selectedDepartment}
+                                onChange={(e) => setSelectedDepartment(e.target.value)}
+                                disabled={!wardNumber}
+                            >
+                                <option value="">All Departments</option>
+                                {departments.map((dept) => (
+                                    <option key={dept.id} value={dept.id}>
+                                        {language === 'kn' ? dept.nameKn : language === 'hi' ? dept.nameHi : dept.name}
+                                    </option>
+                                ))}
+                            </select>
+                            {wardNumber && (
+                                <small style={{ color: '#059669', fontSize: '0.875rem', marginTop: '0.5rem', display: 'block' }}>
+                                    Filter by specific department or view all
+                                </small>
+                            )}
                         </div>
 
                         <button type="submit" className="btn btn-primary" disabled={!selectedCity || !wardNumber}>

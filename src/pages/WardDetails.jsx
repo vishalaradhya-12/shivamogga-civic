@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Phone, Mail, MapPin, Users, Building } from 'lucide-react';
+import { Phone, Mail, MapPin, Users, Building, Filter } from 'lucide-react';
 import { getWardByNumber } from '../data/wardData';
 import { getTranslation } from '../data/translations';
 import 'leaflet/dist/leaflet.css';
@@ -22,8 +22,20 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 function WardDetails({ language }) {
     const { wardNumber } = useParams();
+    const [searchParams] = useSearchParams();
+    const departmentFilter = searchParams.get('dept');
     const ward = getWardByNumber(wardNumber);
     const t = (key) => getTranslation(key, language);
+
+    // Department names mapping
+    const departmentNames = {
+        health: 'Health & Sanitation',
+        water: 'Water Supply',
+        roads: 'Roads & Infrastructure',
+        education: 'Education',
+        streetlights: 'Street Lights',
+        parks: 'Parks & Gardens'
+    };
 
     if (!ward) {
         return (
@@ -47,6 +59,12 @@ function WardDetails({ language }) {
                         <h1>{ward.wardName}</h1>
                         <div className="ward-meta">
                             <span className="badge">Ward {ward.wardNumber}</span>
+                            {departmentFilter && (
+                                <span className="badge" style={{ background: 'linear-gradient(135deg, #059669, #10b981)', color: 'white' }}>
+                                    <Filter size={14} />
+                                    {departmentNames[departmentFilter]}
+                                </span>
+                            )}
                             <span className="ward-stat">
                                 <Users size={16} />
                                 {ward.population.toLocaleString()} residents
