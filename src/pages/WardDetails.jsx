@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Phone, Mail, MapPin, Users, Building, Filter } from 'lucide-react';
+import { Phone, Mail, MapPin, Users, Building, Filter, ChevronDown, ChevronRight } from 'lucide-react';
 import { getWardByNumber } from '../data/wardData';
 import { getTranslation } from '../data/translations';
+import { complaintsData } from '../data/complaintsData';
 import 'leaflet/dist/leaflet.css';
 import './WardDetails.css';
 
@@ -28,15 +30,11 @@ function WardDetails({ language }) {
     const ward = getWardByNumber(wardNumber);
     const t = (key) => getTranslation(key, language);
 
-    // Department names mapping
-    const departmentNames = {
-        health: 'Health & Sanitation',
-        water: 'Water Supply',
-        roads: 'Roads & Infrastructure',
-        education: 'Education',
-        streetlights: 'Street Lights',
-        parks: 'Parks & Gardens'
-    };
+    // State for expanded complaint cards
+    const [expandedComplaint, setExpandedComplaint] = useState(null);
+
+    // Get current department data
+    const currentDept = departmentFilter ? complaintsData[departmentFilter] : null;
 
     if (!ward) {
         return (
@@ -51,6 +49,10 @@ function WardDetails({ language }) {
         );
     }
 
+    const toggleComplaint = (complaintId) => {
+        setExpandedComplaint(expandedComplaint === complaintId ? null : complaintId);
+    };
+
     return (
         <div className="ward-details">
             <div className="container">
@@ -60,10 +62,10 @@ function WardDetails({ language }) {
                         <h1>{ward.wardName}</h1>
                         <div className="ward-meta">
                             <span className="badge">Ward {ward.wardNumber}</span>
-                            {departmentFilter && (
+                            {departmentFilter && currentDept && (
                                 <span className="badge" style={{ background: 'linear-gradient(135deg, #059669, #10b981)', color: 'white' }}>
                                     <Filter size={14} />
-                                    {departmentNames[departmentFilter]}
+                                    {currentDept.name}
                                 </span>
                             )}
                             <span className="ward-stat">
@@ -89,201 +91,24 @@ function WardDetails({ language }) {
                             >
                                 <Building size={18} />
                                 <span>All Departments</span>
-                                <span className="count">18</span>
+                                <span className="count">{Object.keys(complaintsData).length}</span>
                             </button>
 
-                            <button
-                                className={`department-item ${departmentFilter === 'health' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=health`)}
-                            >
-                                <Building size={18} />
-                                <span>Garbage And Sanitation</span>
-                                <span className="count">12</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'streetlights' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=streetlights`)}
-                            >
-                                <Building size={18} />
-                                <span>Street Light</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'roads' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=roads`)}
-                            >
-                                <Building size={18} />
-                                <span>Road Maintenance</span>
-                                <span className="count">5</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'permissions' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=permissions`)}
-                            >
-                                <Building size={18} />
-                                <span>Road Cutting Permissions</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'electrical' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=electrical`)}
-                            >
-                                <Building size={18} />
-                                <span>Electrical</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'water' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=water`)}
-                            >
-                                <Building size={18} />
-                                <span>Water Supply</span>
-                                <span className="count">5</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'drainage' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=drainage`)}
-                            >
-                                <Building size={18} />
-                                <span>Underground Drainage</span>
-                                <span className="count">6</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'voterid' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=voterid`)}
-                            >
-                                <Building size={18} />
-                                <span>Voter Id</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'birth' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=birth`)}
-                            >
-                                <Building size={18} />
-                                <span>Birth/Death Certificates</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'animal' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=animal`)}
-                            >
-                                <Building size={18} />
-                                <span>Animal Control</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'safety' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=safety`)}
-                            >
-                                <Building size={18} />
-                                <span>Public Safety</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'toilets' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=toilets`)}
-                            >
-                                <Building size={18} />
-                                <span>Public Toilets</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'trade' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=trade`)}
-                            >
-                                <Building size={18} />
-                                <span>Trade License</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'building' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=building`)}
-                            >
-                                <Building size={18} />
-                                <span>Building License</span>
-                                <span className="count">3</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'construction' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=construction`)}
-                            >
-                                <Building size={18} />
-                                <span>Building Construction</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'parks' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=parks`)}
-                            >
-                                <Building size={18} />
-                                <span>Lakes</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'welfare' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=welfare`)}
-                            >
-                                <Building size={18} />
-                                <span>Social Welfare</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'general' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=general`)}
-                            >
-                                <Building size={18} />
-                                <span>General</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'education' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=education`)}
-                            >
-                                <Building size={18} />
-                                <span>Health</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'housing' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=housing`)}
-                            >
-                                <Building size={18} />
-                                <span>Housing Scheme Information</span>
-                                <span className="count">4</span>
-                            </button>
-
-                            <button
-                                className={`department-item ${departmentFilter === 'revenue' ? 'active' : ''}`}
-                                onClick={() => navigate(`/ward/${wardNumber}?dept=revenue`)}
-                            >
-                                <Building size={18} />
-                                <span>Revenue</span>
-                                <span className="count">4</span>
-                            </button>
+                            {Object.entries(complaintsData).map(([key, dept]) => (
+                                <button
+                                    key={key}
+                                    className={`department-item ${departmentFilter === key ? 'active' : ''}`}
+                                    onClick={() => navigate(`/ward/${wardNumber}?dept=${key}`)}
+                                >
+                                    <Building size={18} />
+                                    <span>{dept.name}</span>
+                                    <span className="count">{dept.complaints.length}</span>
+                                </button>
+                            ))}
                         </div>
                     </aside>
 
-                    {/* Main Content - Complaints/Issues */}
+                    {/* Main Content */}
                     <main className="ward-main-content">
                         {/* Corporator Card */}
                         <div className="corporator-card-compact card">
@@ -315,65 +140,56 @@ function WardDetails({ language }) {
                         </div>
 
                         {/* Department Content */}
-                        {departmentFilter === 'health' && (
+                        {currentDept && (
                             <div className="complaints-section">
-                                <h2>Garbage And Sanitation</h2>
+                                <h2>{currentDept.name}</h2>
                                 <div className="complaints-grid">
-                                    <div className="complaint-card">
-                                        <h4>Public dustbins not cleaned</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Garbage dump</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Garbage vehicle not arrived</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Sweeping not done</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Drains not cleaned/ blockage in drains</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Burning of garbage in open spaces</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Garbage dumping in open sites</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Stagnant water on the road</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Urination in public/open defecation (OD)</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Littering</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Non segregation of waste</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
-                                    <div className="complaint-card">
-                                        <h4>Illegal dumping of biomedical and hazardous waste</h4>
-                                        <p className="complaint-dept">Health department</p>
-                                    </div>
+                                    {currentDept.complaints.map((complaint) => (
+                                        <div
+                                            key={complaint.id}
+                                            className={`complaint-card ${expandedComplaint === complaint.id ? 'expanded' : ''}`}
+                                            onClick={() => toggleComplaint(complaint.id)}
+                                        >
+                                            <div className="complaint-header">
+                                                <h4>{complaint.title}</h4>
+                                                {expandedComplaint === complaint.id ? (
+                                                    <ChevronDown size={20} className="expand-icon" />
+                                                ) : (
+                                                    <ChevronRight size={20} className="expand-icon" />
+                                                )}
+                                            </div>
+                                            <p className="complaint-dept">{currentDept.department}</p>
+
+                                            {expandedComplaint === complaint.id && (
+                                                <div className="complaint-contact-info">
+                                                    <div className="contact-divider"></div>
+                                                    <h5>Contact Information</h5>
+                                                    <div className="contact-person">
+                                                        <strong>{complaint.contactPerson}</strong>
+                                                    </div>
+                                                    <div className="contact-methods">
+                                                        <a href={`tel:${complaint.phone}`} className="contact-method">
+                                                            <Phone size={16} />
+                                                            <span>{complaint.phone}</span>
+                                                        </a>
+                                                        <a href={`mailto:${complaint.email}`} className="contact-method">
+                                                            <Mail size={16} />
+                                                            <span>{complaint.email}</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    ))}
                                 </div>
                                 <div className="complaint-footer">
                                     <p>Couldn't find your complaint?</p>
+                                    <button className="btn-secondary">Submit New Complaint</button>
                                 </div>
                             </div>
                         )}
 
+                        {/* Overview Section (when no department selected) */}
                         {!departmentFilter && (
                             <div className="overview-section">
                                 <div className="info-grid">

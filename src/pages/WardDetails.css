@@ -221,7 +221,7 @@ body.dark .complaints-section h2 {
 
 .complaints-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--spacing-lg);
     margin-bottom: var(--spacing-2xl);
 }
@@ -233,6 +233,8 @@ body.dark .complaints-section h2 {
     border-radius: var(--radius-xl);
     transition: all var(--transition-normal);
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
 body.dark .complaint-card {
@@ -246,20 +248,124 @@ body.dark .complaint-card {
     transform: translateY(-3px);
 }
 
-.complaint-card h4 {
+.complaint-card.expanded {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+body.dark .complaint-card.expanded {
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.complaint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--spacing-sm);
+}
+
+.complaint-header h4 {
+    flex: 1;
     font-size: 1rem;
     margin-bottom: var(--spacing-sm);
     color: var(--gray-900);
 }
 
-body.dark .complaint-card h4 {
+body.dark .complaint-header h4 {
     color: var(--gray-100);
+}
+
+.expand-icon {
+    flex-shrink: 0;
+    color: #10b981;
+    transition: transform var(--transition-base);
+}
+
+.complaint-card.expanded .expand-icon {
+    transform: rotate(0deg);
 }
 
 .complaint-dept {
     font-size: 0.85rem;
     color: #059669;
     font-weight: 500;
+    margin-bottom: var(--spacing-md);
+}
+
+/* Contact Information Section */
+.complaint-contact-info {
+    margin-top: var(--spacing-lg);
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.contact-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #10b981, transparent);
+    margin-bottom: var(--spacing-md);
+}
+
+.complaint-contact-info h5 {
+    font-size: 0.9rem;
+    color: #059669;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 600;
+}
+
+.contact-person {
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-person strong {
+    color: var(--gray-900);
+    font-size: 0.95rem;
+}
+
+body.dark .contact-person strong {
+    color: var(--gray-100);
+}
+
+.contact-methods {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.contact-method {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm) var(--spacing-md);
+    background: rgba(16, 185, 129, 0.1);
+    border-radius: var(--radius-md);
+    color: #059669;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all var(--transition-base);
+}
+
+.contact-method:hover {
+    background: rgba(16, 185, 129, 0.2);
+    transform: translateX(5px);
+}
+
+.contact-method svg {
+    flex-shrink: 0;
+}
+
+.contact-method span {
+    flex: 1;
 }
 
 .complaint-footer {
@@ -273,6 +379,23 @@ body.dark .complaint-card h4 {
 .complaint-footer p {
     color: #d97706;
     font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.complaint-footer .btn-secondary {
+    background: linear-gradient(135deg, #d97706, #f59e0b);
+    color: white;
+    border: none;
+    padding: var(--spacing-md) var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.complaint-footer .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
 }
 
 /* Overview Section */
