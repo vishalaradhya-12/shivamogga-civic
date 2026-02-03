@@ -1,0 +1,174 @@
+.ward-details {
+    padding: var(--spacing-3xl) 0;
+    min-height: 100vh;
+}
+
+.ward-header {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.ward-title-section h1 {
+    margin-bottom: var(--spacing-md);
+}
+
+.ward-meta {
+    display: flex;
+    gap: var(--spacing-md);
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.ward-stat {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--gray-600);
+    font-size: 0.9375rem;
+}
+
+body.dark .ward-stat {
+    color: var(--gray-400);
+}
+
+.ward-content {
+    display: grid;
+    gap: var(--spacing-xl);
+}
+
+.corporator-card {
+    padding: var(--spacing-2xl);
+}
+
+.corporator-info {
+    display: flex;
+    gap: var(--spacing-xl);
+    align-items: flex-start;
+}
+
+.corporator-avatar {
+    flex-shrink: 0;
+}
+
+.avatar-placeholder {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+}
+
+.corporator-details h3 {
+    margin-bottom: var(--spacing-sm);
+}
+
+.party-badge {
+    display: inline-block;
+    margin-bottom: var(--spacing-md);
+}
+
+.contact-details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.contact-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: color var(--transition-base);
+}
+
+.contact-link:hover {
+    color: var(--primary-blue-dark);
+}
+
+.map-card {
+    padding: var(--spacing-2xl);
+}
+
+.map-container {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    margin-top: var(--spacing-lg);
+}
+
+.boundaries-card {
+    padding: var(--spacing-2xl);
+}
+
+.boundaries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+}
+
+.boundary-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.boundary-item strong {
+    color: var(--gray-700);
+}
+
+body.dark .boundary-item strong {
+    color: var(--gray-300);
+}
+
+.facilities-card {
+    padding: var(--spacing-2xl);
+}
+
+.facilities-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.facility-item {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
+    background: var(--gray-100);
+    border-radius: var(--radius-md);
+    color: var(--gray-700);
+}
+
+body.dark .facility-item {
+    background: var(--dark-bg-tertiary);
+    color: var(--gray-300);
+}
+
+.error-message {
+    text-align: center;
+    padding: var(--spacing-3xl);
+}
+
+@media (max-width: 768px) {
+    .corporator-info {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-details {
+        align-items: center;
+    }
+
+    .boundaries-grid {
+        grid-template-columns: 1fr;
+    }
+}
