@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Phone, Mail, MapPin, Users, Building, Filter } from 'lucide-react';
 import { getWardByNumber } from '../data/wardData';
@@ -23,6 +23,7 @@ L.Marker.prototype.options.icon = DefaultIcon;
 function WardDetails({ language }) {
     const { wardNumber } = useParams();
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const departmentFilter = searchParams.get('dept');
     const ward = getWardByNumber(wardNumber);
     const t = (key) => getTranslation(key, language);
