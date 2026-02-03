@@ -77,124 +77,128 @@ function Home({ language }) {
 
     return (
         <div className="home">
-            {/* Hero Section */}
-            <section className="hero grid-bg">
-                <div className="container">
-                    <div className="hero-content animate-fade-in">
-                        <div className="badge mb-lg">{t('welcome')}</div>
-                        <h1 className="hero-title">{t('heroTitle')}</h1>
-                        <p className="hero-subtitle">{t('heroSubtitle')}</p>
+            {/* Hero Section - Gateway of Malnad */}
+            <section className="hero">
+                <div className="hero-content">
+                    <div className="hero-subtitle">Gateway of Malnad 🌿 Cultural Capital of Karnataka</div>
+                    <h1>ShivaCivic</h1>
+                    <p>
+                        Connecting citizens of Shivamogga with their local representatives.
+                        Transparent access to ward information, corporator details, and civic services
+                        for all 60 wards of our beautiful city.
+                    </p>
+                    <div className="hero-cta">
+                        <button className="btn btn-primary" onClick={() => navigate('/about')}>
+                            <CheckCircle size={20} />
+                            Learn More
+                        </button>
+                        <button className="btn btn-outline" onClick={() => navigate('/feedback')}>
+                            <FileText size={20} />
+                            Submit Feedback
+                        </button>
                     </div>
+                </div>
+            </section>
 
-                    {/* Ward Search Card */}
-                    <div className="ward-search-card animate-fade-in">
-                        <h2>{t('findWardData')}</h2>
-                        <p className="search-subtitle">{t('enterDetails')}</p>
+            {/* Search Section */}
+            <section className="search-section">
+                <div className="search-container">
+                    <h2>Find Your Ward Data</h2>
+                    <p>Enter your ward details to find your local corporator and civic information</p>
 
-                        <form onSubmit={handleSearch} className="search-form">
-                            <div className="form-group">
-                                <label htmlFor="city">
-                                    {t('enterCity')} <span className="required">*</span>
-                                </label>
-                                <select
-                                    id="city"
-                                    value={selectedCity}
-                                    onChange={(e) => setSelectedCity(e.target.value)}
-                                    required
-                                >
-                                    <option value="">{t('selectCity')}</option>
-                                    {cities.map((city) => (
-                                        <option key={city.id} value={city.name}>
-                                            {language === 'kn' ? city.nameKn : language === 'hi' ? city.nameHi : city.name}
-                                        </option>
-                                    ))}
-                                </select>
-                            </div>
+                    <form onSubmit={handleSearch} className="search-form">
+                        <div className="form-group">
+                            <label htmlFor="city">
+                                Select Your City <span style={{ color: '#ef4444' }}>*</span>
+                            </label>
+                            <select
+                                id="city"
+                                value={selectedCity}
+                                onChange={(e) => setSelectedCity(e.target.value)}
+                                required
+                            >
+                                <option value="">Select your city</option>
+                                {cities.map((city) => (
+                                    <option key={city.id} value={city.name}>
+                                        {language === 'kn' ? city.nameKn : language === 'hi' ? city.nameHi : city.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
 
-                            <div className="form-group">
-                                <label htmlFor="ward">
-                                    {t('enterWard')}
-                                </label>
-                                <input
-                                    type="number"
-                                    id="ward"
-                                    placeholder={t('wardPlaceholder')}
-                                    value={wardNumber}
-                                    onChange={(e) => setWardNumber(e.target.value)}
-                                    min="1"
-                                    max="60"
-                                    disabled={!selectedCity}
-                                />
-                                {!selectedCity && (
-                                    <small className="form-hint">{t('pleaseSelectCity')}</small>
-                                )}
-                            </div>
+                        <div className="form-group">
+                            <label htmlFor="ward">
+                                Enter Ward Number (1-60)
+                            </label>
+                            <input
+                                type="number"
+                                id="ward"
+                                placeholder="Ex: 12"
+                                value={wardNumber}
+                                onChange={(e) => setWardNumber(e.target.value)}
+                                min="1"
+                                max="60"
+                                disabled={!selectedCity}
+                            />
+                        </div>
 
-                            <button type="submit" className="btn btn-primary" disabled={!selectedCity || !wardNumber}>
-                                <Search size={20} />
-                                {t('search')}
-                            </button>
-                        </form>
-                    </div>
+                        <button type="submit" className="btn btn-primary" disabled={!selectedCity || !wardNumber}>
+                            <Search size={20} />
+                            Search Ward
+                        </button>
+                    </form>
                 </div>
             </section>
 
             {/* Features Section */}
             <section className="features-section">
-                <div className="container">
-                    <h2 className="section-title text-center">{t('features')}</h2>
-                    <div className="features-grid">
-                        {features.map((feature, index) => (
-                            <div key={index} className="feature-card card">
-                                <div className="feature-icon">{feature.icon}</div>
-                                <h3>{feature.title}</h3>
-                                <p>{feature.description}</p>
-                            </div>
-                        ))}
-                    </div>
+                <h2>Why ShivaCivic?</h2>
+                <p className="features-subtitle">
+                    Empowering Shivamogga citizens with transparent, accessible civic information
+                </p>
+                <div className="features-grid">
+                    {features.map((feature, index) => (
+                        <div key={index} className="feature-card">
+                            <div className="feature-icon">{feature.icon}</div>
+                            <h3>{feature.title}</h3>
+                            <p>{feature.description}</p>
+                        </div>
+                    ))}
                 </div>
             </section>
 
             {/* Process Section */}
-            <section className="process-section grid-bg">
-                <div className="container">
-                    <h2 className="section-title text-center">{t('howItWorks')}</h2>
-                    <p className="section-subtitle text-center">{t('processTitle')}</p>
-
-                    <div className="process-timeline">
-                        {processSteps.map((step, index) => (
-                            <div key={step.number} className="process-step">
-                                <div className="step-number">
-                                    <span>{step.number}</span>
-                                </div>
-                                <div className="step-content card">
-                                    <h3>{step.title}</h3>
-                                    <p>{step.description}</p>
-                                </div>
-                                {index < processSteps.length - 1 && (
-                                    <div className="step-connector"></div>
-                                )}
+            <section className="process-section">
+                <h2>How It Works</h2>
+                <div className="process-timeline">
+                    {processSteps.map((step) => (
+                        <div key={step.number} className="process-step">
+                            <div className="step-number">
+                                {step.number}
                             </div>
-                        ))}
-                    </div>
+                            <div className="step-content">
+                                <h3>{step.title}</h3>
+                                <p>{step.description}</p>
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </section>
 
             {/* CTA Section */}
             <section className="cta-section">
-                <div className="container">
-                    <div className="cta-card card">
-                        <h2>{t('collaborateTitle')}</h2>
-                        <p>{t('collaborateSubtitle')}</p>
-                        <div className="cta-buttons">
-                            <button className="btn btn-primary" onClick={() => navigate('/collaborate')}>
-                                {t('collaborate')}
-                            </button>
-                            <button className="btn btn-outline" onClick={() => navigate('/about')}>
-                                {t('about')}
-                            </button>
-                        </div>
-                    </div>
+                <h2>Join the Movement for Transparent Governance</h2>
+                <p>
+                    Be part of Shivamogga's journey towards better civic engagement.
+                    Together, we can build a more connected and responsive community.
+                </p>
+                <div className="cta-buttons">
+                    <button className="btn-white" onClick={() => navigate('/collaborate')}>
+                        Partner With Us
+                    </button>
+                    <button className="btn-outline-white" onClick={() => navigate('/feedback')}>
+                        Share Feedback
+                    </button>
                 </div>
             </section>
         </div>
