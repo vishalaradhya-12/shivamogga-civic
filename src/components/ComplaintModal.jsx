@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, Check, Building, FileText, Send, ChevronDown } from 'lucide-react';
 import { complaintsData } from '../data/complaintsData';
 import './LoginModal.css'; // Reuse basic modal styles
@@ -13,6 +13,14 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
         description: ''
     });
 
+    // Update formData when initialDepartment changes
+    // This is needed because the prop might change after mount
+    useEffect(() => {
+        if (initialDepartment) {
+            setFormData(prev => ({ ...prev, department: initialDepartment }));
+        }
+    }, [initialDepartment]);
+
     const [referenceId, setReferenceId] = useState('');
 
     const handleSubmit = async (e) => {
@@ -20,7 +28,7 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
         setLoading(true);
 
         // Generate ID
-        const newId = `#SHV-${Math.floor(1000 + Math.random() * 9000)}`;
+        const newId = `#SHV - ${Math.floor(1000 + Math.random() * 9000)} `;
         setReferenceId(newId);
 
         // Create complaint object
