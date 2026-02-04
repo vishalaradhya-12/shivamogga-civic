@@ -1,0 +1,94 @@
+.complaint-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    min-height: 120px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    background: white;
+    color: #1e293b;
+    transition: all 0.2s;
+}
+
+.dark .complaint-textarea {
+    background: #0f172a;
+    border-color: #334155;
+    color: white;
+}
+
+.complaint-textarea:focus {
+    outline: none;
+    border-color: #059669;
+    box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.1);
+}
+
+.success-animation {
+    text-align: center;
+    padding: 40px 0;
+    animation: fadeIn 0.5s;
+}
+
+.success-icon {
+    width: 80px;
+    height: 80px;
+    background: #d1fae5;
+    color: #059669;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 24px;
+}
+
+.dark .success-icon {
+    background: rgba(5, 150, 105, 0.2);
+}
+
+.success-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #059669;
+    margin-bottom: 8px;
+}
+
+.success-message {
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.dark .success-message {
+    color: #94a3b8;
+}
+
+.select-input {
+    width: 100%;
+    padding: 12px 12px 12px 40px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    color: #1e293b;
+    appearance: none;
+    cursor: pointer;
+}
+
+.dark .select-input {
+    background: #0f172a;
+    border-color: #334155;
+    color: white;
+}
+
+.select-wrapper {
+    position: relative;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #94a3b8;
+}

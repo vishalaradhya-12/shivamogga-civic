@@ -5,6 +5,9 @@ import { Phone, Mail, MapPin, Users, Building, Filter, ChevronDown, ChevronRight
 import { getWardByNumber } from '../data/wardData';
 import { getTranslation } from '../data/translations';
 import { complaintsData } from '../data/complaintsData';
+import { useAuth } from '../context/AuthContext';
+import LoginModal from '../components/LoginModal';
+import ComplaintModal from '../components/ComplaintModal';
 import 'leaflet/dist/leaflet.css';
 import './WardDetails.css';
 
@@ -30,6 +33,10 @@ function WardDetails({ language }) {
     const ward = getWardByNumber(wardNumber);
     const t = (key) => getTranslation(key, language);
 
+    const { user } = useAuth();
+    const [isLoginOpen, setIsLoginOpen] = useState(false);
+    const [isComplaintOpen, setIsComplaintOpen] = useState(false);
+
     // State for expanded complaint cards
     const [expandedComplaint, setExpandedComplaint] = useState(null);
 
@@ -51,6 +58,19 @@ function WardDetails({ language }) {
 
     const toggleComplaint = (complaintId) => {
         setExpandedComplaint(expandedComplaint === complaintId ? null : complaintId);
+    };
+
+    const handleComplaintClick = () => {
+        if (user) {
+            setIsComplaintOpen(true);
+        } else {
+            setIsLoginOpen(true);
+        }
+    };
+
+    const handleLoginSuccess = () => {
+        setIsLoginOpen(false);
+        setIsComplaintOpen(true);
     };
 
     return (
@@ -183,8 +203,9 @@ function WardDetails({ language }) {
                                     ))}
                                 </div>
                                 <div className="complaint-footer">
+
                                     <p>Couldn't find your complaint?</p>
-                                    <button className="btn-secondary">Submit New Complaint</button>
+                                    <button className="btn-secondary" onClick={handleComplaintClick}>Submit New Complaint</button>
                                 </div>
                             </div>
                         )}
@@ -275,7 +296,20 @@ function WardDetails({ language }) {
                     </main>
                 </div>
             </div>
-        </div>
+
+
+            <LoginModal
+                isOpen={isLoginOpen}
+                onClose={() => setIsLoginOpen(false)}
+                onSuccess={handleLoginSuccess}
+            />
+
+            <ComplaintModal
+                isOpen={isComplaintOpen}
+                onClose={() => setIsComplaintOpen(false)}
+                initialDepartment={departmentFilter}
+            />
+        </div >
     );
 }
 
