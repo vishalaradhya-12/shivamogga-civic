@@ -230,6 +230,21 @@ function Home({ language }) {
 
             {/* CTA Section */}
             <section className="cta-section">
+                <div className="jog-falls-icon-bg">
+                    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        {/* Raja - The King (Majestic & Continuous) */}
+                        <path d="M50 0 L50 180" stroke="currentColor" strokeWidth="12" strokeLinecap="round" style={{ opacity: 0.9 }} />
+
+                        {/* Roarer - The Violent (Crashes into Raja) */}
+                        <path d="M80 0 Q70 60 55 120" stroke="currentColor" strokeWidth="8" strokeLinecap="round" style={{ opacity: 0.7 }} />
+
+                        {/* Rocket - The Jet (Fast & Straight) */}
+                        <path d="M110 0 L110 160" stroke="currentColor" strokeWidth="6" strokeLinecap="round" style={{ opacity: 0.8 }} />
+
+                        {/* Rani - The Queen (Graceful & Winding) */}
+                        <path d="M150 0 Q140 50 160 100 T150 170" stroke="currentColor" strokeWidth="8" strokeLinecap="round" style={{ opacity: 0.6 }} />
+                    </svg>
+                </div>
                 <h2>Join the Movement for Transparent Governance</h2>
                 <p>
                     Be part of Shivamogga's journey towards better civic engagement.

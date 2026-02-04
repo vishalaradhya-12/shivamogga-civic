@@ -517,18 +517,30 @@ body.dark .step-content p {
     overflow: hidden;
 }
 
-.cta-section::before {
-    content: '';
+/* Custom SVG Background */
+.jog-falls-icon-bg {
     position: absolute;
-    top: 10%;
+    top: 5%;
     left: 5%;
-    width: 250px;
-    height: 250px;
-    background-image: url('../assets/jog-falls-logo.png');
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.2;
-    animation: float 8s ease-in-out infinite;
+    width: 300px;
+    height: 300px;
+    color: white;
+    opacity: 0.15;
+    animation: float 10s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.cta-section {
+    position: relative;
+    /* ... existing styles ... */
+}
+
+.cta-section h2,
+.cta-section p,
+.cta-section .cta-buttons {
+    position: relative;
+    z-index: 1;
 }
 
 .cta-section::after {
