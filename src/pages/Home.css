@@ -517,15 +517,15 @@ body.dark .step-content p {
     overflow: hidden;
 }
 
-/* Custom SVG Background */
+/* Custom SVG Background - Shivappa Nayaka */
 .jog-falls-icon-bg {
     position: absolute;
     top: 5%;
     left: 5%;
     width: 300px;
     height: 300px;
-    color: white;
-    opacity: 0.15;
+    color: black;
+    opacity: 0.8;
     animation: float 10s ease-in-out infinite;
     z-index: 0;
     pointer-events: none;
