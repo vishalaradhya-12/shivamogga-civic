@@ -518,12 +518,16 @@ body.dark .step-content p {
 }
 
 .cta-section::before {
-    content: '🏛️';
+    content: '';
     position: absolute;
-    top: 20%;
-    left: 10%;
-    font-size: 8rem;
-    opacity: 0.1;
+    top: 10%;
+    left: 5%;
+    width: 250px;
+    height: 250px;
+    background-image: url('../assets/jog-falls-logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.2;
     animation: float 8s ease-in-out infinite;
 }
 
