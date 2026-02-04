@@ -15,12 +15,31 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
 
     if (!isOpen) return null;
 
+    const [referenceId, setReferenceId] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
 
-        // Simulate API submission
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        // Generate ID
+        const newId = `#SHV-${Math.floor(1000 + Math.random() * 9000)}`;
+        setReferenceId(newId);
+
+        // Create complaint object
+        const newComplaint = {
+            id: newId,
+            ...formData,
+            status: 'In Progress',
+            date: new Date().toISOString(),
+            timestamp: Date.now()
+        };
+
+        // Simulate API delay
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        // Save to localStorage
+        const existingComplaints = JSON.parse(localStorage.getItem('civic_complaints') || '[]');
+        localStorage.setItem('civic_complaints', JSON.stringify([newComplaint, ...existingComplaints]));
 
         setLoading(false);
         setSuccess(true);
@@ -34,6 +53,7 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
                 title: '',
                 description: ''
             });
+            setReferenceId('');
         }
         onClose();
     };
@@ -57,7 +77,7 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
                             <h3 className="success-title">Complaint Registered!</h3>
                             <p className="success-message">
                                 Your complaint has been submitted successfully. <br />
-                                Reference ID: #SHV-{Math.floor(1000 + Math.random() * 9000)}
+                                Reference ID: <strong>{referenceId}</strong>
                             </p>
                             <button className="btn-primary" onClick={handleClose}>
                                 Done
