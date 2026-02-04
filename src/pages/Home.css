@@ -550,11 +550,15 @@ body.dark .step-content p {
 }
 
 .cta-section h2 {
-    font-size: clamp(2.2rem, 3.5vw, 3.2rem);
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
     margin-bottom: var(--spacing-lg);
     font-weight: 800;
     color: white !important;
     text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-wrap: break-word;
 }
 
 .cta-section p {

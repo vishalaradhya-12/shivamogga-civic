@@ -236,10 +236,10 @@ function Home({ language }) {
                     Together, we can build a more connected and responsive community.
                 </p>
                 <div className="cta-buttons">
-                    <button className="btn-white" onClick={() => navigate('/collaborate')}>
+                    <button className="btn btn-white" onClick={() => navigate('/collaborate')}>
                         Partner With Us
                     </button>
-                    <button className="btn-outline-white" onClick={() => navigate('/feedback')}>
+                    <button className="btn btn-outline-white" onClick={() => navigate('/feedback')}>
                         Share Feedback
                     </button>
                 </div>
