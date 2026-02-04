@@ -61,7 +61,15 @@ function Footer({ language }) {
                             </div>
                             <div className="contact-item">
                                 <Phone size={18} />
-                                <span>+91 70199 21579</span>
+                                <span>+91 70199 21579 (Helpline)</span>
+                            </div>
+                            <div className="contact-item">
+                                <Phone size={18} />
+                                <span>08182-278455 (City Corp)</span>
+                            </div>
+                            <div className="contact-item">
+                                <Phone size={18} />
+                                <span>08182-220001 (Control Room)</span>
                             </div>
                             <div className="contact-item">
                                 <MapPin size={18} />

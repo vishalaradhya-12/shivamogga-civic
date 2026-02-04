@@ -517,18 +517,14 @@ body.dark .step-content p {
     overflow: hidden;
 }
 
-/* Custom SVG Background - Shivappa Nayaka */
-.jog-falls-icon-bg {
+.cta-section::before {
+    content: '🏛️';
     position: absolute;
-    top: 5%;
-    left: 5%;
-    width: 300px;
-    height: 300px;
-    color: black;
-    opacity: 0.8;
-    animation: float 10s ease-in-out infinite;
-    z-index: 0;
-    pointer-events: none;
+    top: 20%;
+    left: 10%;
+    font-size: 8rem;
+    opacity: 0.1;
+    animation: float 8s ease-in-out infinite;
 }
 
 .cta-section {
