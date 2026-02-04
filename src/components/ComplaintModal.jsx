@@ -13,8 +13,6 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
         description: ''
     });
 
-    if (!isOpen) return null;
-
     const [referenceId, setReferenceId] = useState('');
 
     const handleSubmit = async (e) => {
@@ -57,6 +55,8 @@ const ComplaintModal = ({ isOpen, onClose, initialDepartment }) => {
         }
         onClose();
     };
+
+    if (!isOpen) return null;
 
     return (
         <div className="modal-overlay">
