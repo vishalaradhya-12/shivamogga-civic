@@ -11,6 +11,8 @@ import About from './pages/About';
 import Team from './pages/Team';
 import Collaborate from './pages/Collaborate';
 import WardDetails from './pages/WardDetails';
+import WardComplaint from './pages/WardComplaint';
+import QRCodeManagement from './pages/QRCodeManagement';
 import './index.css';
 
 function App() {
@@ -68,6 +70,8 @@ function App() {
               <Route path="/team" element={<Team language={language} />} />
               <Route path="/collaborate" element={<Collaborate language={language} />} />
               <Route path="/ward/:wardNumber" element={<WardDetails language={language} />} />
+              <Route path="/ward/:wardNumber/complaint" element={<WardComplaint language={language} />} />
+              <Route path="/admin/qr-codes" element={<QRCodeManagement language={language} />} />
             </Routes>
           </main>
           <Footer language={language} />
