@@ -160,7 +160,7 @@ function QRCodeManagement({ language }) {
 
                                 <div className="qr-url">
                                     <small>
-                                        /ward/{ward.wardNumber}/complaint
+                                        /ward/{ward.wardNumber}
                                     </small>
                                 </div>
                             </div>
@@ -188,7 +188,7 @@ function QRCodeManagement({ language }) {
                         </div>
 
                         <div className="preview-info">
-                            <p><strong>URL:</strong> https://shivamogga-civic-app.vercel.app/ward/{selectedWard.wardNumber}/complaint</p>
+                            <p><strong>URL:</strong> https://shivamogga-civic-app.vercel.app/ward/{selectedWard.wardNumber}</p>
                             <p><strong>Population:</strong> {selectedWard.population.toLocaleString()} residents</p>
                             <p><strong>Area:</strong> {selectedWard.area}</p>
                         </div>

@@ -7,7 +7,7 @@ import QRCode from 'qrcode';
  * @returns {Promise<string>} - Data URL of the QR code image
  */
 export const generateWardQRCode = async (wardNumber, baseUrl = 'https://shivamogga-civic-app.vercel.app') => {
-    const url = `${baseUrl}/ward/${wardNumber}/complaint`;
+    const url = `${baseUrl}/ward/${wardNumber}`;
 
     try {
         // Generate QR code with high error correction
@@ -31,16 +31,16 @@ export const generateWardQRCode = async (wardNumber, baseUrl = 'https://shivamog
 };
 
 /**
- * Generate QR code as SVG (vector format for scaling)
+ * Generate QR code in SVG format for a specific ward
  * @param {number} wardNumber - Ward number (1-60)
  * @param {string} baseUrl - Base URL of the application
- * @returns {Promise<string>} - SVG string
+ * @returns {Promise<string>} - SVG string of the QR code
  */
 export const generateWardQRCodeSVG = async (wardNumber, baseUrl = 'https://shivamogga-civic-app.vercel.app') => {
-    const url = `${baseUrl}/ward/${wardNumber}/complaint`;
+    const url = `${baseUrl}/ward/${wardNumber}`;
 
     try {
-        const svgString = await QRCode.toString(url, {
+        const qrCodeSVG = await QRCode.toString(url, {
             errorCorrectionLevel: 'H',
             type: 'svg',
             margin: 2,
@@ -50,9 +50,9 @@ export const generateWardQRCodeSVG = async (wardNumber, baseUrl = 'https://shiva
             }
         });
 
-        return svgString;
+        return qrCodeSVG;
     } catch (error) {
-        console.error('Error generating QR code SVG:', error);
+        console.error('Error generating SVG QR code:', error);
         throw error;
     }
 };
