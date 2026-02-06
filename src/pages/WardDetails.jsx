@@ -48,8 +48,8 @@ function WardDetails({ language }) {
             <div className="ward-details">
                 <div className="container">
                     <div className="error-message card">
-                        <h2>Ward Not Found</h2>
-                        <p>The ward number you're looking for doesn't exist.</p>
+                        <h2>{t('wardNotFound')}</h2>
+                        <p>{t('wardNotFoundDesc')}</p>
                     </div>
                 </div>
             </div>
@@ -79,22 +79,28 @@ function WardDetails({ language }) {
                 {/* Header */}
                 <div className="ward-header animate-fade-in">
                     <div className="ward-title-section">
-                        <h1>{ward.wardName}</h1>
+                        <h1>{language === 'kn' ? (ward.wardNameKn || ward.wardName) :
+                            language === 'hi' ? (ward.wardNameHi || ward.wardName) :
+                                ward.wardName}</h1>
                         <div className="ward-meta">
-                            <span className="badge">Ward {ward.wardNumber}</span>
+                            <span className="badge">{t('ward')} {ward.wardNumber}</span>
                             {departmentFilter && currentDept && (
                                 <span className="badge" style={{ background: 'linear-gradient(135deg, #059669, #10b981)', color: 'white' }}>
                                     <Filter size={14} />
-                                    {currentDept.name}
+                                    {language === 'kn' ? (currentDept.nameKn || currentDept.name) :
+                                        language === 'hi' ? (currentDept.nameHi || currentDept.name) :
+                                            currentDept.name}
                                 </span>
                             )}
                             <span className="ward-stat">
                                 <Users size={16} />
-                                {ward.population.toLocaleString()} residents
+                                {ward.population.toLocaleString()} {t('residents')}
                             </span>
                             <span className="ward-stat">
                                 <MapPin size={16} />
-                                {ward.area}
+                                {language === 'kn' ? (ward.areaKn || ward.area) :
+                                    language === 'hi' ? (ward.areaHi || ward.area) :
+                                        ward.area}
                             </span>
                         </div>
                     </div>
@@ -103,28 +109,33 @@ function WardDetails({ language }) {
                 <div className="ward-content-layout">
                     {/* Sidebar - Department Folders */}
                     <aside className="departments-sidebar">
-                        <h3>Available Complaints</h3>
+                        <h3>{t('availableComplaints')}</h3>
                         <div className="department-list">
                             <button
                                 className={`department-item ${!departmentFilter ? 'active' : ''}`}
                                 onClick={() => navigate(`/ward/${wardNumber}`)}
                             >
                                 <Building size={18} />
-                                <span>All Departments</span>
+                                <span>{t('allDepartments')}</span>
                                 <span className="count">{Object.keys(complaintsData).length}</span>
                             </button>
 
-                            {Object.entries(complaintsData).map(([key, dept]) => (
-                                <button
-                                    key={key}
-                                    className={`department-item ${departmentFilter === key ? 'active' : ''}`}
-                                    onClick={() => navigate(`/ward/${wardNumber}?dept=${key}`)}
-                                >
-                                    <Building size={18} />
-                                    <span>{dept.name}</span>
-                                    <span className="count">{dept.complaints.length}</span>
-                                </button>
-                            ))}
+                            {Object.entries(complaintsData).map(([key, dept]) => {
+                                const deptName = language === 'kn' ? (dept.nameKn || dept.name) :
+                                    language === 'hi' ? (dept.nameHi || dept.name) :
+                                        dept.name;
+                                return (
+                                    <button
+                                        key={key}
+                                        className={`department-item ${departmentFilter === key ? 'active' : ''}`}
+                                        onClick={() => navigate(`/ward/${wardNumber}?dept=${key}`)}
+                                    >
+                                        <Building size={18} />
+                                        <span>{deptName}</span>
+                                        <span className="count">{dept.complaints.length}</span>
+                                    </button>
+                                );
+                            })}
                         </div>
                     </aside>
 
@@ -162,7 +173,9 @@ function WardDetails({ language }) {
                         {/* Department Content */}
                         {currentDept && (
                             <div className="complaints-section">
-                                <h2>{currentDept.name}</h2>
+                                <h2>{language === 'kn' ? (currentDept.nameKn || currentDept.name) :
+                                    language === 'hi' ? (currentDept.nameHi || currentDept.name) :
+                                        currentDept.name}</h2>
                                 <div className="complaints-grid">
                                     {currentDept.complaints.map((complaint) => (
                                         <div
@@ -183,7 +196,7 @@ function WardDetails({ language }) {
                                             {expandedComplaint === complaint.id && (
                                                 <div className="complaint-contact-info">
                                                     <div className="contact-divider"></div>
-                                                    <h5>Contact Information</h5>
+                                                    <h5>{t('contactInformation')}</h5>
                                                     <div className="contact-person">
                                                         <strong>{complaint.contactPerson}</strong>
                                                     </div>
@@ -204,8 +217,8 @@ function WardDetails({ language }) {
                                 </div>
                                 <div className="complaint-footer">
 
-                                    <p>Couldn't find your complaint?</p>
-                                    <button className="btn-secondary" onClick={handleComplaintClick}>Submit New Complaint</button>
+                                    <p>{t('couldntFindComplaint')}</p>
+                                    <button className="btn-secondary" onClick={handleComplaintClick}>{t('submitNewComplaint')}</button>
                                 </div>
                             </div>
                         )}
@@ -215,27 +228,27 @@ function WardDetails({ language }) {
                             <div className="overview-section">
                                 <div className="info-grid">
                                     <div className="info-card card">
-                                        <h3>Ward Information</h3>
+                                        <h3>{t('wardInformation')}</h3>
                                         <div className="info-stats">
                                             <div className="stat-item">
                                                 <Users size={24} />
                                                 <div>
                                                     <strong>{ward.population.toLocaleString()}</strong>
-                                                    <span>Residents</span>
+                                                    <span>{t('residents')}</span>
                                                 </div>
                                             </div>
                                             <div className="stat-item">
                                                 <MapPin size={24} />
                                                 <div>
-                                                    <strong>{ward.area}</strong>
-                                                    <span>Area</span>
+                                                    <strong>{language === 'kn' ? ward.areaKn : language === 'hi' ? ward.areaHi : ward.area}</strong>
+                                                    <span>{t('area')}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="map-card card">
-                                        <h3>Ward Location</h3>
+                                        <h3>{t('wardLocation')}</h3>
                                         <div className="map-container">
                                             <MapContainer
                                                 center={ward.coordinates}
@@ -258,36 +271,46 @@ function WardDetails({ language }) {
                                     </div>
 
                                     <div className="boundaries-card card">
-                                        <h3>Ward Boundaries</h3>
+                                        <h3>{t('wardBoundaries')}</h3>
                                         <div className="boundaries-grid">
                                             <div className="boundary-item">
-                                                <strong>North:</strong>
-                                                <span>{ward.boundaries.north}</span>
+                                                <strong>{t('north')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.north || ward.boundaries.north) :
+                                                    language === 'hi' ? (ward.boundariesHi?.north || ward.boundaries.north) :
+                                                        ward.boundaries.north}</span>
                                             </div>
                                             <div className="boundary-item">
-                                                <strong>South:</strong>
-                                                <span>{ward.boundaries.south}</span>
+                                                <strong>{t('south')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.south || ward.boundaries.south) :
+                                                    language === 'hi' ? (ward.boundariesHi?.south || ward.boundaries.south) :
+                                                        ward.boundaries.south}</span>
                                             </div>
                                             <div className="boundary-item">
-                                                <strong>East:</strong>
-                                                <span>{ward.boundaries.east}</span>
+                                                <strong>{t('east')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.east || ward.boundaries.east) :
+                                                    language === 'hi' ? (ward.boundariesHi?.east || ward.boundaries.east) :
+                                                        ward.boundaries.east}</span>
                                             </div>
                                             <div className="boundary-item">
-                                                <strong>West:</strong>
-                                                <span>{ward.boundaries.west}</span>
+                                                <strong>{t('west')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.west || ward.boundaries.west) :
+                                                    language === 'hi' ? (ward.boundariesHi?.west || ward.boundaries.west) :
+                                                        ward.boundaries.west}</span>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div className="facilities-card card">
-                                        <h3>Public Facilities</h3>
+                                        <h3>{t('publicFacilities')}</h3>
                                         <div className="facilities-list">
-                                            {ward.facilities.map((facility, index) => (
-                                                <div key={index} className="facility-item">
-                                                    <Building size={20} />
-                                                    <span>{facility}</span>
-                                                </div>
-                                            ))}
+                                            {(language === 'kn' ? (ward.facilitiesKn || ward.facilities) :
+                                                language === 'hi' ? (ward.facilitiesHi || ward.facilities) :
+                                                    ward.facilities).map((facility, index) => (
+                                                        <div key={index} className="facility-item">
+                                                            <Building size={20} />
+                                                            <span>{facility}</span>
+                                                        </div>
+                                                    ))}
                                         </div>
                                     </div>
                                 </div>

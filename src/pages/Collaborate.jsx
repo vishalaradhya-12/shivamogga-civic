@@ -9,19 +9,19 @@ function Collaborate({ language }) {
             icon: <Building size={40} />,
             title: t('forGovernment'),
             description: t('forGovernmentDesc'),
-            action: 'Contact Us'
+            action: t('contactUs')
         },
         {
             icon: <GraduationCap size={40} />,
             title: t('forResearchers'),
             description: t('forResearchersDesc'),
-            action: 'Get Involved'
+            action: t('getInvolved')
         },
         {
             icon: <UsersIcon size={40} />,
             title: t('forCitizens'),
             description: t('forCitizensDesc'),
-            action: 'Join Us'
+            action: t('joinUs')
         }
     ];
 

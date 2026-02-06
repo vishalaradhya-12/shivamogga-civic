@@ -95,21 +95,19 @@ function Home({ language }) {
             {/* Hero Section - Gateway of Malnad */}
             <section className="hero">
                 <div className="hero-content">
-                    <div className="hero-subtitle">Gateway of Malnad 🌿 Cultural Capital of Karnataka</div>
-                    <h1>ShivaCivic</h1>
+                    <div className="hero-subtitle">{t('gatewayOfMalnad')}</div>
+                    <h1>{t('shivaCivic')}</h1>
                     <p>
-                        Connecting citizens of Shivamogga with their local representatives.
-                        Transparent access to ward information, corporator details, and civic services
-                        for all 60 wards of our beautiful city.
+                        {t('heroDescription')}
                     </p>
                     <div className="hero-cta">
                         <button className="btn btn-primary" onClick={() => navigate('/about')}>
                             <CheckCircle size={20} />
-                            Learn More
+                            {t('learnMore')}
                         </button>
                         <button className="btn btn-outline" onClick={() => navigate('/feedback')}>
                             <FileText size={20} />
-                            Submit Feedback
+                            {t('submitFeedback')}
                         </button>
                     </div>
                 </div>
@@ -118,13 +116,13 @@ function Home({ language }) {
             {/* Search Section */}
             <section className="search-section">
                 <div className="search-container">
-                    <h2>Find Your Ward Data</h2>
-                    <p>Enter your ward details to find your local corporator and civic information</p>
+                    <h2>{t('findWardData')}</h2>
+                    <p>{t('enterWardDetails')}</p>
 
                     <form onSubmit={handleSearch} className="search-form">
                         <div className="form-group">
                             <label htmlFor="city">
-                                Select Your City <span style={{ color: '#ef4444' }}>*</span>
+                                {t('selectYourCity')} <span style={{ color: '#ef4444' }}>*</span>
                             </label>
                             <select
                                 id="city"
@@ -132,7 +130,7 @@ function Home({ language }) {
                                 onChange={(e) => setSelectedCity(e.target.value)}
                                 required
                             >
-                                <option value="">Select your city</option>
+                                <option value="">{t('selectCity')}</option>
                                 {cities.map((city) => (
                                     <option key={city.id} value={city.name}>
                                         {language === 'kn' ? city.nameKn : language === 'hi' ? city.nameHi : city.name}
@@ -143,7 +141,7 @@ function Home({ language }) {
 
                         <div className="form-group">
                             <label htmlFor="ward">
-                                Select Ward <span style={{ color: '#ef4444' }}>*</span>
+                                {t('selectWardLabel')} <span style={{ color: '#ef4444' }}>*</span>
                             </label>
                             <select
                                 id="ward"
@@ -152,10 +150,10 @@ function Home({ language }) {
                                 disabled={!selectedCity}
                                 required
                             >
-                                <option value="">Select ward number</option>
+                                <option value="">{t('selectWardNumber')}</option>
                                 {[...Array(60)].map((_, i) => (
                                     <option key={i + 1} value={i + 1}>
-                                        Ward {i + 1}
+                                        {t('ward')} {i + 1}
                                     </option>
                                 ))}
                             </select>
@@ -163,7 +161,7 @@ function Home({ language }) {
 
                         <div className="form-group">
                             <label htmlFor="department">
-                                Select Department (Optional)
+                                {t('selectDepartmentOptional')}
                             </label>
                             <select
                                 id="department"
@@ -171,7 +169,7 @@ function Home({ language }) {
                                 onChange={(e) => setSelectedDepartment(e.target.value)}
                                 disabled={!wardNumber}
                             >
-                                <option value="">All Departments</option>
+                                <option value="">{t('allDepartments')}</option>
                                 {departments.map((dept) => (
                                     <option key={dept.id} value={dept.id}>
                                         {language === 'kn' ? dept.nameKn : language === 'hi' ? dept.nameHi : dept.name}
@@ -180,14 +178,14 @@ function Home({ language }) {
                             </select>
                             {wardNumber && (
                                 <small style={{ color: '#059669', fontSize: '0.875rem', marginTop: '0.5rem', display: 'block' }}>
-                                    Filter by specific department or view all
+                                    {t('filterByDepartment')}
                                 </small>
                             )}
                         </div>
 
                         <button type="submit" className="btn btn-primary" disabled={!selectedCity || !wardNumber}>
                             <Search size={20} />
-                            Search Ward
+                            {t('searchWard')}
                         </button>
                     </form>
                 </div>
@@ -195,9 +193,9 @@ function Home({ language }) {
 
             {/* Features Section */}
             <section className="features-section">
-                <h2>Why ShivaCivic?</h2>
+                <h2>{t('whyShivaCivic')}</h2>
                 <p className="features-subtitle">
-                    Empowering Shivamogga citizens with transparent, accessible civic information
+                    {t('featuresSubtitle')}
                 </p>
                 <div className="features-grid">
                     {features.map((feature, index) => (
@@ -212,7 +210,7 @@ function Home({ language }) {
 
             {/* Process Section */}
             <section className="process-section">
-                <h2>How It Works</h2>
+                <h2>{t('howItWorks')}</h2>
                 <div className="process-timeline">
                     {processSteps.map((step) => (
                         <div key={step.number} className="process-step">
@@ -230,17 +228,16 @@ function Home({ language }) {
 
             {/* CTA Section */}
             <section className="cta-section">
-                <h2>Join the Movement for Transparent Governance</h2>
+                <h2>{t('joinMovement')}</h2>
                 <p>
-                    Be part of Shivamogga's journey towards better civic engagement.
-                    Together, we can build a more connected and responsive community.
+                    {t('joinDescription')}
                 </p>
                 <div className="cta-buttons">
                     <button className="btn btn-white" onClick={() => navigate('/collaborate')}>
-                        Partner With Us
+                        {t('partnerWithUs')}
                     </button>
                     <button className="btn btn-outline-white" onClick={() => navigate('/feedback')}>
-                        Share Feedback
+                        {t('shareFeedback')}
                     </button>
                 </div>
             </section>

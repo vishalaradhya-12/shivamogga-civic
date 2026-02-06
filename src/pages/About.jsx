@@ -17,11 +17,9 @@ function About({ language }) {
                     </p>
 
                     <div style={{ marginTop: '3rem' }}>
-                        <h3>Our Commitment</h3>
+                        <h3>{t('ourCommitment')}</h3>
                         <p>
-                            ShivaCivic is dedicated to bringing transparency and accessibility to civic governance in Shivamogga.
-                            We believe that every citizen deserves easy access to information about their local representatives
-                            and the ability to engage meaningfully with their government.
+                            {t('commitmentDesc')}
                         </p>
                     </div>
                 </div>

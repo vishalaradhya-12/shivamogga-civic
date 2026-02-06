@@ -5,10 +5,10 @@ function Team({ language }) {
     const t = (key) => getTranslation(key, language);
 
     const team = [
-        { name: 'Dr. Rajesh Kumar', role: 'Project Lead', linkedin: '#' },
-        { name: 'Priya Sharma', role: 'Technical Lead', linkedin: '#' },
-        { name: 'Arun Gowda', role: 'Community Manager', linkedin: '#' },
-        { name: 'Lakshmi Devi', role: 'Research Associate', linkedin: '#' }
+        { name: 'Dr. Rajesh Kumar', roleKey: 'projectLead', linkedin: '#' },
+        { name: 'Priya Sharma', roleKey: 'technicalLead', linkedin: '#' },
+        { name: 'Arun Gowda', roleKey: 'communityManager', linkedin: '#' },
+        { name: 'Lakshmi Devi', roleKey: 'researchAssociate', linkedin: '#' }
     ];
 
     return (
@@ -40,10 +40,10 @@ function Team({ language }) {
                                 {member.name.charAt(0)}
                             </div>
                             <h3>{member.name}</h3>
-                            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>{member.role}</p>
+                            <p style={{ color: 'var(--gray-600)', marginBottom: '1rem' }}>{t(member.roleKey)}</p>
                             <a href={member.linkedin} className="btn btn-outline" style={{ padding: '0.5rem 1rem' }}>
                                 <Linkedin size={18} />
-                                LinkedIn
+                                {t('linkedin')}
                             </a>
                         </div>
                     ))}

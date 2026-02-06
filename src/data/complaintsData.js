@@ -310,6 +310,8 @@ export const complaintsData = {
     // Add remaining 17 departments...
     permissions: {
         name: 'Road Cutting Permissions',
+        nameKn: 'ರಸ್ತೆ ಕತ್ತರಿಸುವ ಅನುಮತಿಗಳು',
+        nameHi: 'सड़क काटने की अनुमति',
         department: 'Municipal Administration',
         contactPerson: 'Permissions Officer',
         phone: '+91 8182 220180',
@@ -340,6 +342,8 @@ export const complaintsData = {
     },
     electrical: {
         name: 'Electrical',
+        nameKn: 'ವಿದ್ಯುತ್',
+        nameHi: 'विद्युत',
         department: 'Electrical Department',
         contactPerson: 'Chief Electrical Engineer',
         phone: '+91 8182 220190',
