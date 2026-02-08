@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Phone, Mail, MapPin, Users, Building, Filter, ChevronDown, ChevronRight } from 'lucide-react';
 import { getWardByNumber } from '../data/wardData';
+import { getEmployeesByWard } from '../data/employeeStorage';
 import { getTranslation } from '../data/translations';
 import { complaintsData } from '../data/complaintsData';
 import { useAuth } from '../context/AuthContext';
@@ -171,11 +172,17 @@ function WardDetails({ language }) {
                         </div>
 
                         {/* Ward Employees Section */}
-                        {ward.employees && ward.employees.length > 0 && (() => {
+                        {(() => {
+                            // Get employees from storage first, fallback to ward data
+                            let wardEmployees = getEmployeesByWard(parseInt(wardNumber));
+                            if (wardEmployees.length === 0 && ward.employees) {
+                                wardEmployees = ward.employees;
+                            }
+
                             // Filter employees based on department selection
                             const filteredEmployees = departmentFilter
-                                ? ward.employees.filter(emp => emp.department === departmentFilter)
-                                : ward.employees; // Show all employees when "All Departments" is selected
+                                ? wardEmployees.filter(emp => emp.department === departmentFilter)
+                                : wardEmployees; // Show all employees when "All Departments" is selected
 
                             return filteredEmployees.length > 0 ? (
                                 <div className="employees-card card">

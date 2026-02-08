@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {
     LayoutDashboard, FileText, Users, BarChart3, LogOut,
     TrendingUp, Clock, CheckCircle, AlertCircle, XCircle,
-    Search, Filter, ChevronDown, Eye, Edit
+    Search, Filter, ChevronDown, Eye, Edit, Settings
 } from 'lucide-react';
 import {
     getComplaints,
@@ -14,6 +14,7 @@ import {
     getComplaintsByDepartment
 } from '../data/complaintsStorage';
 import { complaintsData } from '../data/complaintsData';
+import EmployeeManagement from '../components/EmployeeManagement';
 import './AdminDashboard.css';
 
 const AdminDashboard = ({ language = 'en' }) => {
@@ -211,6 +212,16 @@ const AdminDashboard = ({ language = 'en' }) => {
                     <BarChart3 size={18} />
                     Analytics
                 </button>
+                {/* Employee Management - Main Admin Only */}
+                {adminDepartment === 'all' && (
+                    <button
+                        className={`tab-btn ${activeTab === 'management' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('management')}
+                    >
+                        <Settings size={18} />
+                        Manage Employees
+                    </button>
+                )}
             </nav>
 
             {/* Main Content */}
@@ -520,6 +531,11 @@ const AdminDashboard = ({ language = 'en' }) => {
                             </div>
                         </div>
                     </div>
+                )}
+
+                {/* Employee Management Tab - Main Admin Only */}
+                {activeTab === 'management' && adminDepartment === 'all' && (
+                    <EmployeeManagement />
                 )}
             </main>
         </div>

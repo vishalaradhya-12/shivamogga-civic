@@ -2,6 +2,7 @@
 // Handles complaint submission, assignment, and tracking
 
 import { getWardByNumber } from './wardData';
+import { getEmployeesByWard, getAllEmployees } from './employeeStorage';
 
 /**
  * Auto-assign complaint to appropriate ward employee
@@ -10,20 +11,29 @@ import { getWardByNumber } from './wardData';
  * @returns {Object} Assigned employee object
  */
 export function autoAssignComplaint(wardNumber, department) {
-    const ward = getWardByNumber(wardNumber);
+    // Try to get employees from new storage system first
+    let wardEmployees = getEmployeesByWard(wardNumber);
 
-    if (!ward || !ward.employees) {
-        console.error('Ward or employees not found');
+    // Fallback to ward data if no employees in storage
+    if (wardEmployees.length === 0) {
+        const ward = getWardByNumber(wardNumber);
+        if (ward && ward.employees) {
+            wardEmployees = ward.employees;
+        }
+    }
+
+    if (wardEmployees.length === 0) {
+        console.error('No employees found for ward', wardNumber);
         return null;
     }
 
     // Filter employees by department
-    const departmentEmployees = ward.employees.filter(emp => emp.department === department);
+    const departmentEmployees = wardEmployees.filter(emp => emp.department === department);
 
     if (departmentEmployees.length === 0) {
         // Fallback: assign to first available employee in the ward
         console.warn(`No employees found for department ${department} in ward ${wardNumber}`);
-        return ward.employees[0] || null;
+        return wardEmployees[0] || null;
     }
 
     // Get complaint counts for load balancing
