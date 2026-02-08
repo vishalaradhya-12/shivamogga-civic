@@ -273,49 +273,6 @@ function WardDetails({ language }) {
                                     <p>{t('couldntFindComplaint')}</p>
                                     <button className="btn-secondary" onClick={handleComplaintClick}>{t('submitNewComplaint')}</button>
                                 </div>
-
-                                {/* Department-Specific Employees */}
-                                {ward.employees && (() => {
-                                    const deptEmployees = ward.employees.filter(emp => emp.department === departmentFilter);
-                                    return deptEmployees.length > 0 ? (
-                                        <div className="department-employees-section">
-                                            <h3>{t('wardEmployees')}</h3>
-                                            <div className="employees-grid">
-                                                {deptEmployees.map((employee) => (
-                                                    <div key={employee.id} className="employee-card">
-                                                        <div className="employee-header">
-                                                            <div className="employee-avatar">
-                                                                {language === 'kn' ? (employee.nameKn || employee.name).charAt(0) :
-                                                                    language === 'hi' ? (employee.nameHi || employee.name).charAt(0) :
-                                                                        employee.name.charAt(0)}
-                                                            </div>
-                                                            <div className="employee-info">
-                                                                <h4>{language === 'kn' ? (employee.nameKn || employee.name) :
-                                                                    language === 'hi' ? (employee.nameHi || employee.name) :
-                                                                        employee.name}</h4>
-                                                                <p className="employee-designation">
-                                                                    {language === 'kn' ? (employee.designationKn || employee.designation) :
-                                                                        language === 'hi' ? (employee.designationHi || employee.designation) :
-                                                                            employee.designation}
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="employee-contact">
-                                                            <a href={`tel:${employee.phone}`} className="employee-contact-link">
-                                                                <Phone size={14} />
-                                                                {employee.phone}
-                                                            </a>
-                                                            <a href={`mailto:${employee.email}`} className="employee-contact-link">
-                                                                <Mail size={14} />
-                                                                {employee.email}
-                                                            </a>
-                                                        </div>
-                                                    </div>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    ) : null;
-                                })()}
                             </div>
                         )}
                         {/* Overview Section (when no department selected) */}
