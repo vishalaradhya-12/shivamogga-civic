@@ -421,6 +421,8 @@ function WardDetails({ language }) {
                 isOpen={isComplaintOpen}
                 onClose={() => setIsComplaintOpen(false)}
                 initialDepartment={departmentFilter}
+                initialWard={wardNumber}
+                language={language}
             />
         </div >
     );

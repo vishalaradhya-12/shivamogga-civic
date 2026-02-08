@@ -92,3 +92,152 @@
     pointer-events: none;
     color: #94a3b8;
 }
+
+/* Complaint Details Box */
+.complaint-details-box {
+    background: rgba(5, 150, 105, 0.05);
+    border: 2px solid rgba(5, 150, 105, 0.2);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 24px 0;
+    text-align: left;
+}
+
+body.dark .complaint-details-box {
+    background: rgba(5, 150, 105, 0.1);
+    border-color: rgba(5, 150, 105, 0.3);
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.detail-row strong {
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+body.dark .detail-row strong {
+    color: #94a3b8;
+}
+
+.reference-id {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #059669;
+    font-family: monospace;
+}
+
+.detail-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #10b981, transparent);
+    margin: 16px 0;
+}
+
+.assigned-title {
+    font-size: 0.95rem;
+    color: #059669;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* Assigned Employee Card */
+.assigned-employee-card {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+body.dark .assigned-employee-card {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.employee-avatar-small {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #059669, #10b981);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.employee-details {
+    flex: 1;
+}
+
+.employee-name {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+}
+
+body.dark .employee-name {
+    color: #f1f5f9;
+}
+
+.employee-designation {
+    font-size: 0.85rem;
+    color: #059669;
+    margin-bottom: 8px;
+}
+
+.employee-contacts {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    background: rgba(5, 150, 105, 0.1);
+    border-radius: 6px;
+    color: #059669;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+    width: fit-content;
+}
+
+.contact-badge:hover {
+    background: rgba(5, 150, 105, 0.2);
+    transform: translateX(2px);
+}
+
+body.dark .contact-badge {
+    background: rgba(5, 150, 105, 0.15);
+}
+
+body.dark .contact-badge:hover {
+    background: rgba(5, 150, 105, 0.25);
+}
+
+.resolution-note {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+body.dark .resolution-note {
+    color: #94a3b8;
+}
+
+.required {
+    color: #ef4444;
+    margin-left: 4px;
+}
