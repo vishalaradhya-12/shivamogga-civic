@@ -93,7 +93,17 @@ const AdminDashboard = ({ language = 'en' }) => {
         };
 
         const complaintStats = calculateStats(allComplaints);
-        const employeePerformance = getAllEmployeesPerformance();
+
+        // Get all employees and filter by department if needed
+        let employeePerformance = getAllEmployeesPerformance();
+        if (department !== 'all') {
+            // Filter employees to only show those who have complaints in this department
+            employeePerformance = employeePerformance.filter(emp => {
+                // Check if employee has any complaints in the filtered department
+                const empComplaints = allComplaints.filter(c => c.assignedEmployee?.id === emp.id);
+                return empComplaints.length > 0;
+            });
+        }
 
         setComplaints(allComplaints);
         setStats(complaintStats);
