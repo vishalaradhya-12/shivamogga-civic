@@ -48,7 +48,51 @@ const AdminDashboard = ({ language = 'en' }) => {
             allComplaints = allComplaints.filter(c => c.department === department);
         }
 
-        const complaintStats = getComplaintStats();
+        // Calculate stats from filtered complaints
+        const calculateStats = (complaints) => {
+            const pending = complaints.filter(c => c.status === 'pending').length;
+            const inProgress = complaints.filter(c => c.status === 'in-progress').length;
+            const resolved = complaints.filter(c => c.status === 'resolved').length;
+            const rejected = complaints.filter(c => c.status === 'rejected').length;
+
+            // Calculate average resolution time
+            const resolvedComplaints = complaints.filter(c => c.status === 'resolved' && c.resolvedAt);
+            let avgResolutionTime = 0;
+            if (resolvedComplaints.length > 0) {
+                const totalTime = resolvedComplaints.reduce((sum, c) => {
+                    const submitted = new Date(c.submittedAt);
+                    const resolved = new Date(c.resolvedAt);
+                    return sum + (resolved - submitted) / (1000 * 60 * 60); // hours
+                }, 0);
+                avgResolutionTime = Math.round(totalTime / resolvedComplaints.length);
+            }
+
+            // Group by department
+            const byDepartment = {};
+            complaints.forEach(c => {
+                byDepartment[c.department] = (byDepartment[c.department] || 0) + 1;
+            });
+
+            // Group by priority
+            const byPriority = {
+                high: complaints.filter(c => c.priority === 'high').length,
+                medium: complaints.filter(c => c.priority === 'medium').length,
+                low: complaints.filter(c => c.priority === 'low').length
+            };
+
+            return {
+                total: complaints.length,
+                pending,
+                inProgress,
+                resolved,
+                rejected,
+                avgResolutionTime,
+                byDepartment,
+                byPriority
+            };
+        };
+
+        const complaintStats = calculateStats(allComplaints);
         const employeePerformance = getAllEmployeesPerformance();
 
         setComplaints(allComplaints);
