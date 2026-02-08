@@ -1,11 +1,64 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Lock, User, AlertCircle } from 'lucide-react';
+import { Lock, User, AlertCircle, Building2 } from 'lucide-react';
 import './AdminLoginPage.css';
+
+// Department credentials configuration
+const DEPARTMENT_CREDENTIALS = {
+    'all': {
+        username: 'admin',
+        password: 'admin123',
+        department: 'all',
+        name: 'Main Admin'
+    },
+    'health': {
+        username: 'garbage_admin',
+        password: 'garbage123',
+        department: 'health',
+        name: 'Garbage And Sanitation'
+    },
+    'streetlights': {
+        username: 'streetlight_admin',
+        password: 'light123',
+        department: 'streetlights',
+        name: 'Street Light'
+    },
+    'roads': {
+        username: 'roads_admin',
+        password: 'roads123',
+        department: 'roads',
+        name: 'Road Maintenance'
+    },
+    'water': {
+        username: 'water_admin',
+        password: 'water123',
+        department: 'water',
+        name: 'Water Supply'
+    },
+    'drainage': {
+        username: 'drainage_admin',
+        password: 'drainage123',
+        department: 'drainage',
+        name: 'Underground Drainage'
+    },
+    'permissions': {
+        username: 'permissions_admin',
+        password: 'permissions123',
+        department: 'permissions',
+        name: 'Road Cutting Permissions'
+    },
+    'electrical': {
+        username: 'electrical_admin',
+        password: 'electrical123',
+        department: 'electrical',
+        name: 'Electrical'
+    }
+};
 
 const AdminLoginPage = () => {
     const navigate = useNavigate();
     const [credentials, setCredentials] = useState({
+        department: 'all',
         username: '',
         password: ''
     });
@@ -17,12 +70,18 @@ const AdminLoginPage = () => {
         setLoading(true);
         setError('');
 
-        // Simple authentication (in production, this should be a proper backend call)
-        // Default admin credentials: admin / admin123
-        if (credentials.username === 'admin' && credentials.password === 'admin123') {
-            // Store auth token
+        // Validate credentials against department configuration
+        const deptConfig = DEPARTMENT_CREDENTIALS[credentials.department];
+
+        if (deptConfig &&
+            credentials.username === deptConfig.username &&
+            credentials.password === deptConfig.password) {
+
+            // Store auth token and department info
             localStorage.setItem('admin_auth', 'true');
             localStorage.setItem('admin_user', credentials.username);
+            localStorage.setItem('admin_department', credentials.department);
+            localStorage.setItem('admin_department_name', deptConfig.name);
 
             setTimeout(() => {
                 setLoading(false);
@@ -31,7 +90,7 @@ const AdminLoginPage = () => {
         } else {
             setTimeout(() => {
                 setLoading(false);
-                setError('Invalid username or password');
+                setError('Invalid username or password for selected department');
             }, 500);
         }
     };
@@ -63,6 +122,29 @@ const AdminLoginPage = () => {
                                 <span>{error}</span>
                             </div>
                         )}
+
+                        <div className="form-group">
+                            <label htmlFor="department">
+                                <Building2 size={18} />
+                                Department
+                            </label>
+                            <select
+                                id="department"
+                                name="department"
+                                value={credentials.department}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="all">Main Admin (All Departments)</option>
+                                <option value="health">Garbage And Sanitation</option>
+                                <option value="streetlights">Street Light</option>
+                                <option value="roads">Road Maintenance</option>
+                                <option value="water">Water Supply</option>
+                                <option value="drainage">Underground Drainage</option>
+                                <option value="permissions">Road Cutting Permissions</option>
+                                <option value="electrical">Electrical</option>
+                            </select>
+                        </div>
 
                         <div className="form-group">
                             <label htmlFor="username">
@@ -106,7 +188,13 @@ const AdminLoginPage = () => {
                         </button>
 
                         <div className="login-info">
-                            <p>Default credentials: admin / admin123</p>
+                            <p>
+                                <strong>{DEPARTMENT_CREDENTIALS[credentials.department].name}</strong>
+                                <br />
+                                Username: {DEPARTMENT_CREDENTIALS[credentials.department].username}
+                                <br />
+                                Password: {DEPARTMENT_CREDENTIALS[credentials.department].password}
+                            </p>
                         </div>
                     </form>
                 </div>

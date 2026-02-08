@@ -104,13 +104,25 @@ body.dark .form-group label {
     transition: all var(--transition-normal);
 }
 
-.form-group input:focus {
+.form-group select {
+    padding: var(--spacing-md);
+    border: 2px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-lg);
+    font-size: 1rem;
+    transition: all var(--transition-normal);
+    background: white;
+    cursor: pointer;
+}
+
+.form-group input:focus,
+.form-group select:focus {
     outline: none;
     border-color: #10b981;
     box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
-body.dark .form-group input {
+body.dark .form-group input,
+body.dark .form-group select {
     background: var(--dark-tertiary);
     border-color: rgba(16, 185, 129, 0.4);
     color: var(--gray-200);

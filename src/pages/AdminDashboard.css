@@ -45,6 +45,17 @@ body.dark .admin-header {
     margin: 0;
 }
 
+.department-badge {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(5, 150, 105, 0.1);
+    color: #059669;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
 .logout-btn {
     display: flex;
     align-items: center;

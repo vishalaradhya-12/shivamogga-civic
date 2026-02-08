@@ -22,6 +22,8 @@ const AdminDashboard = ({ language = 'en' }) => {
     const [complaints, setComplaints] = useState([]);
     const [stats, setStats] = useState(null);
     const [employees, setEmployees] = useState([]);
+    const [adminDepartment, setAdminDepartment] = useState('all');
+    const [adminDepartmentName, setAdminDepartmentName] = useState('Main Admin');
     const [filters, setFilters] = useState({
         search: '',
         status: '',
@@ -30,11 +32,22 @@ const AdminDashboard = ({ language = 'en' }) => {
     });
 
     useEffect(() => {
-        loadData();
+        // Get admin department from localStorage
+        const dept = localStorage.getItem('admin_department') || 'all';
+        const deptName = localStorage.getItem('admin_department_name') || 'Main Admin';
+        setAdminDepartment(dept);
+        setAdminDepartmentName(deptName);
+        loadData(dept);
     }, []);
 
-    const loadData = () => {
-        const allComplaints = getComplaints();
+    const loadData = (department = 'all') => {
+        let allComplaints = getComplaints();
+
+        // Filter complaints by department if not main admin
+        if (department !== 'all') {
+            allComplaints = allComplaints.filter(c => c.department === department);
+        }
+
         const complaintStats = getComplaintStats();
         const employeePerformance = getAllEmployeesPerformance();
 
@@ -46,6 +59,8 @@ const AdminDashboard = ({ language = 'en' }) => {
     const handleLogout = () => {
         localStorage.removeItem('admin_auth');
         localStorage.removeItem('admin_user');
+        localStorage.removeItem('admin_department');
+        localStorage.removeItem('admin_department_name');
         navigate('/');
     };
 
@@ -98,7 +113,12 @@ const AdminDashboard = ({ language = 'en' }) => {
                 <div className="admin-header-content">
                     <div className="admin-logo">
                         <LayoutDashboard size={28} />
-                        <h1>Admin Dashboard</h1>
+                        <div>
+                            <h1>Admin Dashboard</h1>
+                            {adminDepartment !== 'all' && (
+                                <p className="department-badge">{adminDepartmentName}</p>
+                            )}
+                        </div>
                     </div>
                     <button className="logout-btn" onClick={handleLogout}>
                         <LogOut size={18} />
