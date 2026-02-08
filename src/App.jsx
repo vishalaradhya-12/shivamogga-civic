@@ -14,6 +14,7 @@ import WardDetails from './pages/WardDetails';
 import WardComplaint from './pages/WardComplaint';
 import QRCodeManagement from './pages/QRCodeManagement';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminLoginPage from './pages/AdminLoginPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import './index.css';
 
@@ -74,6 +75,7 @@ function App() {
               <Route path="/ward/:wardNumber" element={<WardDetails language={language} />} />
               <Route path="/ward/:wardNumber/complaint" element={<WardComplaint language={language} />} />
               <Route path="/admin/qr-codes" element={<QRCodeManagement language={language} />} />
+              <Route path="/admin/login" element={<AdminLoginPage />} />
               <Route path="/admin/dashboard" element={
                 <ProtectedRoute>
                   <AdminDashboard language={language} />
