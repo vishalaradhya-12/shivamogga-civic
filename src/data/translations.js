@@ -175,6 +175,12 @@ export const translations = {
         success: 'Success',
         required: 'Required',
         ward: 'Ward',
+
+        // Ward Employees
+        wardEmployees: 'Ward Employees',
+        designation: 'Designation',
+        employeeId: 'Employee ID',
+        noEmployeesFound: 'No employees found for this department',
     },
 
     hi: {
@@ -353,6 +359,12 @@ export const translations = {
         success: 'सफलता',
         required: 'आवश्यक',
         ward: 'वार्ड',
+
+        // Ward Employees
+        wardEmployees: 'वार्ड कर्मचारी',
+        designation: 'पद',
+        employeeId: 'कर्मचारी आईडी',
+        noEmployeesFound: 'इस विभाग के लिए कोई कर्मचारी नहीं मिला',
     },
 
     kn: {
@@ -531,6 +543,12 @@ export const translations = {
         success: 'ಯಶಸ್ಸು',
         required: 'ಅಗತ್ಯವಿದೆ',
         ward: 'ವಾರ್ಡ್',
+
+        // Ward Employees
+        wardEmployees: 'ವಾರ್ಡ್ ಉದ್ಯೋಗಿಗಳು',
+        designation: 'ಹುದ್ದೆ',
+        employeeId: 'ಉದ್ಯೋಗಿ ಐಡಿ',
+        noEmployeesFound: 'ಈ ವಿಭಾಗಕ್ಕೆ ಯಾವುದೇ ಉದ್ಯೋಗಿಗಳು ಕಂಡುಬಂದಿಲ್ಲ',
     }
 };
 
