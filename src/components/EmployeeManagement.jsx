@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Save, X, Users } from 'lucide-react';
+import { Plus, Edit, Trash2, Save, X, Users, Download } from 'lucide-react';
 import {
     getAllEmployees,
     addEmployee,
     updateEmployee,
     deleteEmployee,
-    getEmployeeStats
+    getEmployeeStats,
+    initializeEmployeesFromWardData
 } from '../data/employeeStorage';
 import { complaintsData } from '../data/complaintsData';
+import { wardData } from '../data/wardData';
 import './EmployeeManagement.css';
 
 const EmployeeManagement = () => {
@@ -124,6 +126,22 @@ const EmployeeManagement = () => {
         }
     };
 
+    const handleInitializeEmployees = () => {
+        if (employees.length > 0) {
+            if (!window.confirm('Employee data already exists. Do you want to re-initialize and merge with existing data?')) {
+                return;
+            }
+        }
+
+        try {
+            const initialized = initializeEmployeesFromWardData(wardData);
+            loadEmployees();
+            alert(`Successfully initialized ${initialized.length} employees from ward data!`);
+        } catch (error) {
+            alert('Error initializing employees: ' + error.message);
+        }
+    };
+
     const filteredEmployees = employees.filter(emp => {
         if (filters.department && emp.department !== filters.department) return false;
         if (filters.ward && emp.wardNumber !== parseInt(filters.ward)) return false;
@@ -143,16 +161,26 @@ const EmployeeManagement = () => {
                     <h2>Employee Management</h2>
                     <p className="subtitle">Manage employees across all wards and departments</p>
                 </div>
-                <button
-                    className="add-employee-btn"
-                    onClick={() => {
-                        resetForm();
-                        setIsAddingNew(true);
-                    }}
-                >
-                    <Plus size={18} />
-                    Add New Employee
-                </button>
+                <div className="header-actions">
+                    <button
+                        className="init-btn"
+                        onClick={handleInitializeEmployees}
+                        title="Import employees from existing ward data"
+                    >
+                        <Download size={18} />
+                        Initialize Data
+                    </button>
+                    <button
+                        className="add-employee-btn"
+                        onClick={() => {
+                            resetForm();
+                            setIsAddingNew(true);
+                        }}
+                    >
+                        <Plus size={18} />
+                        Add New Employee
+                    </button>
+                </div>
             </div>
 
             {/* Statistics */}
