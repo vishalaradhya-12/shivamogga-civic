@@ -216,97 +216,6 @@ function WardDetails({ language }) {
                                             </div>
                                         </div>
                                     )}
-                        {/* Overview Section (when no department selected) */}
-                        {!departmentFilter && (
-                            <div className="overview-section">
-                                <div className="info-grid">
-                                    <div className="info-card card">
-                                        <h3>{t('wardInformation')}</h3>
-                                        <div className="info-stats">
-                                            <div className="stat-item">
-                                                <Users size={24} />
-                                                <div>
-                                                    <strong>{ward.population.toLocaleString()}</strong>
-                                                    <span>{t('residents')}</span>
-                                                </div>
-                                            </div>
-                                            <div className="stat-item">
-                                                <MapPin size={24} />
-                                                <div>
-                                                    <strong>{language === 'kn' ? ward.areaKn : language === 'hi' ? ward.areaHi : ward.area}</strong>
-                                                    <span>{t('area')}</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="map-card card">
-                                        <h3>{t('wardLocation')}</h3>
-                                        <div className="map-container">
-                                            <MapContainer
-                                                center={ward.coordinates}
-                                                zoom={14}
-                                                style={{ height: '300px', width: '100%' }}
-                                            >
-                                                <TileLayer
-                                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                                />
-                                                <Marker position={ward.coordinates}>
-                                                    <Popup>
-                                                        <strong>{ward.wardName}</strong>
-                                                        <br />
-                                                        Corporator: {ward.corporator.name}
-                                                    </Popup>
-                                                </Marker>
-                                            </MapContainer>
-                                        </div>
-                                    </div>
-
-                                    <div className="boundaries-card card">
-                                        <h3>{t('wardBoundaries')}</h3>
-                                        <div className="boundaries-grid">
-                                            <div className="boundary-item">
-                                                <strong>{t('north')}:</strong>
-                                                <span>{language === 'kn' ? (ward.boundariesKn?.north || ward.boundaries.north) :
-                                                    language === 'hi' ? (ward.boundariesHi?.north || ward.boundaries.north) :
-                                                        ward.boundaries.north}</span>
-                                            </div>
-                                            <div className="boundary-item">
-                                                <strong>{t('south')}:</strong>
-                                                <span>{language === 'kn' ? (ward.boundariesKn?.south || ward.boundaries.south) :
-                                                    language === 'hi' ? (ward.boundariesHi?.south || ward.boundaries.south) :
-                                                        ward.boundaries.south}</span>
-                                            </div>
-                                            <div className="boundary-item">
-                                                <strong>{t('east')}:</strong>
-                                                <span>{language === 'kn' ? (ward.boundariesKn?.east || ward.boundaries.east) :
-                                                    language === 'hi' ? (ward.boundariesHi?.east || ward.boundaries.east) :
-                                                        ward.boundaries.east}</span>
-                                            </div>
-                                            <div className="boundary-item">
-                                                <strong>{t('west')}:</strong>
-                                                <span>{language === 'kn' ? (ward.boundariesKn?.west || ward.boundaries.west) :
-                                                    language === 'hi' ? (ward.boundariesHi?.west || ward.boundaries.west) :
-                                                        ward.boundaries.west}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="facilities-card card">
-                                        <h3>{t('publicFacilities')}</h3>
-                                        <div className="facilities-list">
-                                            {(language === 'kn' ? (ward.facilitiesKn || ward.facilities) :
-                                                language === 'hi' ? (ward.facilitiesHi || ward.facilities) :
-                                                    ward.facilities).map((facility, index) => (
-                                                        <div key={index} className="facility-item">
-                                                            <Building size={20} />
-                                                            <span>{facility}</span>
-                                                        </div>
-                                                    ))}
-                                        </div>
-                                    </div>
-
                         {/* Department Content */}
                         {currentDept && (
                             <div className="complaints-section">
@@ -402,6 +311,97 @@ function WardDetails({ language }) {
                                 })()}
                             </div>
                         )}
+                        {/* Overview Section (when no department selected) */}
+                        {!departmentFilter && (
+                            <div className="overview-section">
+                                <div className="info-grid">
+                                    <div className="info-card card">
+                                        <h3>{t('wardInformation')}</h3>
+                                        <div className="info-stats">
+                                            <div className="stat-item">
+                                                <Users size={24} />
+                                                <div>
+                                                    <strong>{ward.population.toLocaleString()}</strong>
+                                                    <span>{t('residents')}</span>
+                                                </div>
+                                            </div>
+                                            <div className="stat-item">
+                                                <MapPin size={24} />
+                                                <div>
+                                                    <strong>{language === 'kn' ? ward.areaKn : language === 'hi' ? ward.areaHi : ward.area}</strong>
+                                                    <span>{t('area')}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="map-card card">
+                                        <h3>{t('wardLocation')}</h3>
+                                        <div className="map-container">
+                                            <MapContainer
+                                                center={ward.coordinates}
+                                                zoom={14}
+                                                style={{ height: '300px', width: '100%' }}
+                                            >
+                                                <TileLayer
+                                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                                />
+                                                <Marker position={ward.coordinates}>
+                                                    <Popup>
+                                                        <strong>{ward.wardName}</strong>
+                                                        <br />
+                                                        Corporator: {ward.corporator.name}
+                                                    </Popup>
+                                                </Marker>
+                                            </MapContainer>
+                                        </div>
+                                    </div>
+
+                                    <div className="boundaries-card card">
+                                        <h3>{t('wardBoundaries')}</h3>
+                                        <div className="boundaries-grid">
+                                            <div className="boundary-item">
+                                                <strong>{t('north')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.north || ward.boundaries.north) :
+                                                    language === 'hi' ? (ward.boundariesHi?.north || ward.boundaries.north) :
+                                                        ward.boundaries.north}</span>
+                                            </div>
+                                            <div className="boundary-item">
+                                                <strong>{t('south')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.south || ward.boundaries.south) :
+                                                    language === 'hi' ? (ward.boundariesHi?.south || ward.boundaries.south) :
+                                                        ward.boundaries.south}</span>
+                                            </div>
+                                            <div className="boundary-item">
+                                                <strong>{t('east')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.east || ward.boundaries.east) :
+                                                    language === 'hi' ? (ward.boundariesHi?.east || ward.boundaries.east) :
+                                                        ward.boundaries.east}</span>
+                                            </div>
+                                            <div className="boundary-item">
+                                                <strong>{t('west')}:</strong>
+                                                <span>{language === 'kn' ? (ward.boundariesKn?.west || ward.boundaries.west) :
+                                                    language === 'hi' ? (ward.boundariesHi?.west || ward.boundaries.west) :
+                                                        ward.boundaries.west}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="facilities-card card">
+                                        <h3>{t('publicFacilities')}</h3>
+                                        <div className="facilities-list">
+                                            {(language === 'kn' ? (ward.facilitiesKn || ward.facilities) :
+                                                language === 'hi' ? (ward.facilitiesHi || ward.facilities) :
+                                                    ward.facilities).map((facility, index) => (
+                                                        <div key={index} className="facility-item">
+                                                            <Building size={20} />
+                                                            <span>{facility}</span>
+                                                        </div>
+                                                    ))}
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         )}
