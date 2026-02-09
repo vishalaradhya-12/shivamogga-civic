@@ -142,11 +142,11 @@ export function deleteEmployee(employeeId) {
  * Initialize employees from ward data (one-time migration)
  * This should be called once to migrate existing ward employee data to the new system
  */
-export function initializeEmployeesFromWardData(wardData) {
+export function initializeEmployeesFromWardData(wardData, force = false) {
     const existingEmployees = getAllEmployees();
 
-    // Only initialize if no employees exist
-    if (existingEmployees.length > 0) {
+    // Only initialize if no employees exist, unless forced
+    if (existingEmployees.length > 0 && !force) {
         return existingEmployees;
     }
 
@@ -158,7 +158,7 @@ export function initializeEmployeesFromWardData(wardData) {
             ward.employees.forEach(emp => {
                 allEmployees.push({
                     id: emp.id || generateEmployeeId(),
-                    wardNumber: ward.number,
+                    wardNumber: ward.wardNumber,
                     department: emp.department,
                     name: emp.name,
                     nameKn: emp.nameKn || '',

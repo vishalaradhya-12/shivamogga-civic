@@ -40,14 +40,18 @@ const EmployeeManagement = () => {
     const loadEmployees = () => {
         let allEmployees = getAllEmployees();
 
-        // Auto-initialize if storage is empty
-        if (allEmployees.length === 0) {
-            console.log('Employee storage empty, auto-initializing from ward data...');
+        // Check for corrupted data (undefined/null wardNumber)
+        // Wards are 1-based, so !wardNumber catches 0, null, undefined
+        const hasCorruptedData = allEmployees.length > 0 && allEmployees.some(emp => !emp.wardNumber);
+
+        // Auto-initialize if storage is empty OR corrupted
+        if (allEmployees.length === 0 || hasCorruptedData) {
+            console.log('Employee storage empty or corrupted, auto-initializing from ward data...');
             try {
-                const initialized = initializeEmployeesFromWardData(wardData);
+                // Force re-initialization if data is corrupted
+                const initialized = initializeEmployeesFromWardData(wardData, hasCorruptedData);
                 if (initialized.length > 0) {
                     allEmployees = initialized;
-                    // Force a storage update event or just use the returned data
                 }
             } catch (error) {
                 console.error('Auto-initialization failed:', error);
