@@ -9,7 +9,7 @@ import {
     initializeEmployeesFromWardData
 } from '../data/employeeStorage';
 import { complaintsData } from '../data/complaintsData';
-import { wardData } from '../data/wardData';
+import { shivamoggaWards as wardData } from '../data/wardData';
 import './EmployeeManagement.css';
 
 const EmployeeManagement = () => {
@@ -38,7 +38,22 @@ const EmployeeManagement = () => {
     }, []);
 
     const loadEmployees = () => {
-        const allEmployees = getAllEmployees();
+        let allEmployees = getAllEmployees();
+
+        // Auto-initialize if storage is empty
+        if (allEmployees.length === 0) {
+            console.log('Employee storage empty, auto-initializing from ward data...');
+            try {
+                const initialized = initializeEmployeesFromWardData(wardData);
+                if (initialized.length > 0) {
+                    allEmployees = initialized;
+                    // Force a storage update event or just use the returned data
+                }
+            } catch (error) {
+                console.error('Auto-initialization failed:', error);
+            }
+        }
+
         const employeeStats = getEmployeeStats();
         setEmployees(allEmployees);
         setStats(employeeStats);
